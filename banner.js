@@ -33,7 +33,7 @@ class Banner extends HTMLElement {
         ...defaultSettings,
         ...parsedSettings
         };
-        
+
         // OR const layoutSettings = this.getLayoutSettings();
         return `
       <style>
@@ -50,6 +50,7 @@ class Banner extends HTMLElement {
           width: ${layoutSettings.width};
           height: ${layoutSettings.height};
           position: ${layoutSettings.position};
+          z-index: ${layoutSettings.zIndex};
         }
         .banner h2 {
           margin: 0 0 0.5rem 0;
@@ -65,7 +66,8 @@ class Banner extends HTMLElement {
             right: this.getAttribute('right') ?? '0px',
             width: this.getAttribute('width') ?? 'auto',
             height: this.getAttribute('height') ?? 'auto',
-            position: this.getAttribute('position') ?? 'absolute'
+            position: this.getAttribute('position') ?? 'absolute',
+            zIndex: this.getAttribute('zIndex') ?? '1'
         };
     }
 }
