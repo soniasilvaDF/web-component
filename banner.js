@@ -1,27 +1,13 @@
 class Banner extends HTMLElement {
-  async connectedCallback() {
-    const API_URL = 'https://jsonplaceholder.typicode.com/posts/1';
-    const styles = `
-      <style>
-        .banner {
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          padding: 1rem;
-          margin: 1rem;
-          background: #f9f9f9;
-          font-family: Arial, sans-serif;
-        }
-        .banner h2 {
-          margin: 0 0 0.5rem 0;
-          color: #007acc;
-        }
-      </style>`;
+    async connectedCallback() {
+        const API_URL = 'https://jsonplaceholder.typicode.com/posts/1';        
+        const styles = this.getStyles();
 
-    try {
-      const response = await fetch(API_URL);
-      const data = await response.json();
+        try {
+            const response = await fetch(API_URL);
+            const data = await response.json();
 
-      this.innerHTML = `
+            this.innerHTML = `
         ${styles}
         <div class="banner">
         <h2>${this.getAttribute('title') || 'Aviso'}</h2>
@@ -29,17 +15,55 @@ class Banner extends HTMLElement {
         <p>(API:) ${data.title}</p>
       </div>
       `;
-    } catch (error) {
-      this.innerHTML = `
+        } catch (error) {
+            this.innerHTML = `
         <div class="banner" style="background:red; color:white; padding:1rem;">
           Erro ao carregar dados da API
         </div>
       `;
-      console.error('Error:', error);
+            console.error('Error:', error);
+        }
     }
-  }
+
+    getStyles() {
+        const layoutSettings = JSON.parse(this.getAttribute('settings'));
+        // OR const layoutSettings = this.getLayoutSettings();
+        const defaultSettings = this.getLayoutSettings();
+        return `
+      <style>
+        .banner {
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          padding: 1rem;
+          margin: 1rem;
+          background: #f9f9f9;
+          box-sizing: border-box;
+          top: ${layoutSettings.top ?? defaultSettings.top};
+          left: ${layoutSettings.left ?? defaultSettings.left};
+          right: ${layoutSettings.right ?? defaultSettings.right};
+          width: ${layoutSettings.width ?? defaultSettings.width};
+          height: ${layoutSettings.height ?? defaultSettings.height};
+          position: ${layoutSettings.height ?? defaultSettings.position};
+        }
+        .banner h2 {
+          margin: 0 0 0.5rem 0;
+          color: #007acc;
+        }
+      </style>`;
+    }
+
+    getLayoutSettings() {
+        return {
+            top: this.getAttribute('top') ?? '0px',
+            left: this.getAttribute('left') ?? '0px',
+            right: this.getAttribute('right') ?? '0px',
+            width: this.getAttribute('width') ?? 'auto',
+            height: this.getAttribute('height') ?? 'auto',
+            position: this.getAttribute('position') ?? 'absolute'
+        };
+    }
 }
 
 if (!customElements.get('warning-banner')) {
-  customElements.define('warning-banner', Banner);
+    customElements.define('warning-banner', Banner);
 }
