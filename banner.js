@@ -27,7 +27,13 @@ class Banner extends HTMLElement {
 
     getStyles() {
         const defaultSettings = this.getLayoutSettings();
-        const layoutSettings = JSON.parse(this.getAttribute('settings')) ?? defaultSettings;
+        const parsedSettings = JSON.parse(this.getAttribute('settings') ?? '{}');
+
+        const layoutSettings = {
+        ...defaultSettings,
+        ...parsedSettings
+        };
+        
         // OR const layoutSettings = this.getLayoutSettings();
         return `
       <style>
