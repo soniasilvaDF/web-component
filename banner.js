@@ -43,7 +43,7 @@ class Banner extends HTMLElement {
           right: ${layoutSettings.right};
           width: ${layoutSettings.width};
           height: ${layoutSettings.height};
-          position: ${layoutSettings.height};
+          position: ${layoutSettings.position};
         }
         .banner h2 {
           margin: 0 0 0.5rem 0;
