@@ -12,7 +12,7 @@ class Banner extends HTMLElement {
         <div class="banner">
         <h2>${this.getAttribute('title') || 'Aviso'}</h2>
         <p>${this.getAttribute('message') || 'Serviços indisponíveis'}</p>
-        <p>(API:) ${data.title}</p>
+        <p>Example API data: ${data.title}</p>
       </div>
       `;
         } catch (error) {
