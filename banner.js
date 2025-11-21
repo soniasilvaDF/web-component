@@ -26,9 +26,9 @@ class Banner extends HTMLElement {
     }
 
     getStyles() {
-        const layoutSettings = JSON.parse(this.getAttribute('settings'));
-        // OR const layoutSettings = this.getLayoutSettings();
         const defaultSettings = this.getLayoutSettings();
+        const layoutSettings = JSON.parse(this.getAttribute('settings')) ?? defaultSettings;
+        // OR const layoutSettings = this.getLayoutSettings();
         return `
       <style>
         .banner {
@@ -38,12 +38,12 @@ class Banner extends HTMLElement {
           margin: 1rem;
           background: #f9f9f9;
           box-sizing: border-box;
-          top: ${layoutSettings.top ?? defaultSettings.top};
-          left: ${layoutSettings.left ?? defaultSettings.left};
-          right: ${layoutSettings.right ?? defaultSettings.right};
-          width: ${layoutSettings.width ?? defaultSettings.width};
-          height: ${layoutSettings.height ?? defaultSettings.height};
-          position: ${layoutSettings.height ?? defaultSettings.position};
+          top: ${layoutSettings.top};
+          left: ${layoutSettings.left};
+          right: ${layoutSettings.right};
+          width: ${layoutSettings.width};
+          height: ${layoutSettings.height};
+          position: ${layoutSettings.height};
         }
         .banner h2 {
           margin: 0 0 0.5rem 0;
